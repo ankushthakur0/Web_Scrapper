@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 from lxml import html
 import requests
 
+
 # Request the page
 # page = requests.get('https://webscraper.io/test-sites/e-commerce/allinone')
 # tree = html.fromstring(page.content) 
@@ -11,15 +12,88 @@ import requests
 # print(prices)
 # re = requests.get("http://econpy.pythonanywhere.com/ex/001.html")
 
-page = requests.get('https://www.bmw.com/en/automotive-life/bmw-3-series-generations.html')
-tree = html.fromstring(page.content)
+# req = requests.get('https://www.bmw.com/en/automotive-life/bmw-3-series-generations.html')
+ 
+# print(req.encoding)    
+# print(req.status_code)
+# print(req.elapsed)    
+# print(req.url)        
+# print(req.history)    
+# print(req.headers['Content-Type'])
+
+# page = requests.get('https://www.bmw.com/en/automotive-life/bmw-3-series-generations.html')
+# tree = html.fromstring(page.content)
 # generations = tree.xpath(
-#     '/html/body/main/article/div[1]/div/div[6]/div/div/div/div[1]/div[1]/h2/text()'
+#     '/html/body/main/article/div[1]/div/div[13]/div/text()'
 # )
-generations = tree.find_elements_by_xpath(
-    '//div[@class="pw-m-listicle__headline"]')
-for span in generations:
-    print (span.text)
+# print(generations)
+
+
+
+
+# URL = "https://www.bmw.com/en/automotive-life/bmw-3-series-generations.html"
+# URL = "http://www.values.com/inspirational-quotes"
+# r = requests.get(URL)
+  
+# soup = BeautifulSoup(r.content, 'html5lib') 
+# # print(soup.prettify())
+
+# generations = []
+# table = soup.find('div', attrs = {'id':'all_quotes'}) 
+# print(table)
+
+
+resp = requests.get('https://www.bmw.com/en/automotive-life/bmw-3-series-generations.html')
+
+# parse the page
+page = BeautifulSoup(resp.content)
+
+# relevant class attributes found by just looking at the site html 
+# in a browser, you may need to alter it slightly to get the desired divs 
+
+# find_all works very similarly to querySelectorAll
+# for x in page.find_all(attrs={'class': 'col col--s4 has-nested-row'}):
+#     # get text will pull all inner text from child elements of selected 'x' elem
+#     # print(x.get_text())
+#     for y in x.find_all(attrs={'class': 'pw-m-listicle__headline'}):
+        
+#         for a in y.find_all(attrs={'class': 'hl hl--m'}):
+#             print(a.get_text())
+
+for x in page.find_all(attrs={'class': 'hl hl--m'}):
+    print(x.get_text())
+
+
+
+
+
+
+# r = requests.get("https://www.bmw.com/en/automotive-life/bmw-3-series-generations.html")
+ 
+# data = r.text
+# soup = BeautifulSoup(data)
+ 
+# for link in soup.find_all('a'):
+    # print(link.get('href'))
+
+
+# from lxml import etree
+ 
+# root_elem = etree.Element('html')
+# etree.SubElement(root_elem, 'head')
+# etree.SubElement(root_elem, 'title')
+# etree.SubElement(root_elem, 'body')
+ 
+# print(etree.tostring(root_elem, pretty_print = True).decode("utf-8"))
+
+
+
+
+
+# generations = tree.find_elements_by_xpath(
+#     '//div[@class="pw-m-listicle__headline"]')
+# for span in generations:
+#     print (span.text)
 # built = tree.xpath(
 #     '/html/body/main/article/div[1]/div/div[6]/div/div/div/div[1]/div[3]/ul/li[1]/strong/text()'
 # )
