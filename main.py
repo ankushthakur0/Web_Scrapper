@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from pprint import pprint
 from lxml import html
 import requests
 
@@ -60,10 +61,32 @@ page = BeautifulSoup(resp.content)
 #         for a in y.find_all(attrs={'class': 'hl hl--m'}):
 #             print(a.get_text())
 
-for x in page.find_all(attrs={'class': 'hl hl--m'}):
-    print(x.get_text())
+for generation in page.find_all(attrs = {'class': 'hl hl--m'}):
+    print(generation.get_text())
+
+for build in page.find_all(attrs = {'class': 'strong'}):
+    print(build.get_text())
+
+for power in page.find_all(attrs = {'class': 'li'}):
+    print(power.get_text())
+
+for variants in page.find_all(attrs = {'class': 'li'}):
+    print(variants.get_text())
 
 
+
+
+def main():
+    url = 'https://www.bmw.com/en/automotive-life/bmw-3-series-generations.html'
+    for elem in BeautifulSoup(requests.Session().get(url).text, 'lxml').find_all('div', {'class': 'pw-m-listicle'})[::2]:
+        pprint({
+            'Generation': elem.find('div', {'class': 'pw-m-listicle__headline'}).text,
+            **{list_elem.text.split(':')[0].strip() : list_elem.text.split(':')[-1].strip() for list_elem in elem.find_all('li')},
+            'Description': "\n".join([p.text for p in elem.find('p')])
+        })
+
+if __name__ == '__main__':
+    main()
 
 
 
