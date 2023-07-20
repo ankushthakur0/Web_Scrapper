@@ -61,8 +61,8 @@ page = BeautifulSoup(resp.content)
 #         for a in y.find_all(attrs={'class': 'hl hl--m'}):
 #             print(a.get_text())
 
-for generation in page.find_all(attrs = {'class': 'hl hl--m'}):
-    print(generation.get_text())
+# for generation in page.find_all(attrs = {'class': 'hl hl--m'}):
+#     print(generation.get_text())
 
 for build in page.find_all(attrs = {'class': 'strong'}):
     print(build.get_text())
@@ -87,7 +87,6 @@ def main():
 
 if __name__ == '__main__':
     main()
-
 
 
 
